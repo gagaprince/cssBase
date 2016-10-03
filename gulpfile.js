@@ -54,6 +54,12 @@ gulp.task("js",function(cb){
         .pipe(gulp.dest(jsDestPath));
 });
 
+gulp.task("font",function(){
+    var fontDestPath = currentPath+'/src/font';
+    return gulp.src('app/src/font/*')
+        .pipe(gulp.dest(fontDestPath));
+});
+
 gulp.task("lib",function(){
     var libDestPath = currentPath+'/lib';
     gulp.src('bower_components/zepto/zepto.min.js')
@@ -69,8 +75,8 @@ gulp.task("html",function(cb){
         .pipe(revCollector({
             replaceReved: true,
             dirReplacements: {
-                'src/css/': 'src/css/',
-                'src/js/': 'src/js/'
+                '/src/css/': '/src/css/',
+                '/src/js/': '/src/js/'
             }
         }))
         .pipe(gulp.dest(htmlDestPath))
@@ -131,13 +137,14 @@ gulp.task('open_brower',['serve'],function(){
 gulp.task("publish",function(cb){
     currentPath =publishPath;
     devMode = false;
-    sequence('clean','lib','js','css','html')(cb);
+    sequence('clean','lib','js','css','font','html')(cb);
 });
 
 gulp.task("publish_webpack",function(cb){
-    sequence('clean','lib','js','css','html')(cb);
+    sequence('clean','lib','js','css','font','html')(cb);
 });
 
 gulp.task('serve',['publish_webpack','server_start','watch_dev']);
 
-gulp.task('default',['open_brower']);
+//gulp.task('default',['open_brower']);
+gulp.task('default',['serve']);
