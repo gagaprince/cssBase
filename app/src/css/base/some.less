@@ -1,0 +1,46 @@
+@import "./base.less";
+.arrow{
+  position:relative;
+  .bg-frame,.front-frame{
+    width:16px;
+    height:16px;
+    background:#1ba9ba;
+    .origin(0,0);
+    .skew(-4deg,-4deg);
+  }
+  .front-frame{
+    background:#fff;
+    position:absolute;
+    top:3px;
+    left:3px;
+  }
+  .origin(0,0);
+  .rotate(-45deg);
+}
+
+.my-dot-loading{
+  margin-left: 15px;
+  .keyframes(my-dot-loading-animate,{
+    0% {
+      background:#ccc;
+    }
+    50% {
+      background:#999;
+    }
+    100% {
+      background:#ccc;
+    }
+  });
+  .my-dot{
+    margin:5px;
+    .box(10px);
+    .bradius(50%);
+    background:#999;
+  }
+  .my-dot:nth-child(2n){
+    .animation(my-dot-loading-animate,0.8s,ease,0s,infinite);
+  }
+  .my-dot:nth-child(2n-1){
+    .animation(my-dot-loading-animate,0.8s,ease,0.4s,infinite);
+  }
+}

@@ -113,9 +113,18 @@
   @-webkit-keyframes @name{
     @action();
   }
+  @-moz-keyframes @name{
+    @action();
+  }
+  @-o-keyframes @name{
+    @action();
+  }
+  @keyframes @name{
+    @action();
+  }
 }
 //执行自定义动画
-.animation(@name,@du:1s,@fun:ease,@delay:0s){
+.animation(@name,@du:1s,@fun:ease,@delay:0s,@repeat:1){
   -webkit-animation:@arguments;
   -moz-animation:@arguments;
   -o-animation:@arguments;
@@ -156,4 +165,112 @@
     .scale(0.5,0.5);
     .origin(0,0);
   }
+}
+
+.h-c {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  box-orient: horizontal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -o-box-orient: horizontal;
+  box-pack: center;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -o-box-pack: center;
+  box-align: center;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+}
+
+.h-l {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  box-orient: horizontal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -o-box-orient: horizontal;
+  box-pack: start;
+  -webkit-box-pack: start;
+  -moz-box-pack: start;
+  -o-box-pack: start;
+  box-align: center;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+}
+
+.h-r {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  box-orient: horizontal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -o-box-orient: horizontal;
+  box-pack: end;
+  -webkit-box-pack: end;
+  -moz-box-pack: end;
+  -o-box-pack: end;
+  box-align: center;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+}
+
+.v-c {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  box-orient: vertical;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -o-box-orient: vertical;
+  box-pack: center;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -o-box-pack: center;
+  box-align: center;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+}
+
+.v-u {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  box-orient: vertical;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -o-box-orient: vertical;
+  box-pack: start;
+  -webkit-box-pack: start;
+  -moz-box-pack: start;
+  -o-box-pack: start;
+  box-align: center;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+}
+
+.v-d {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  box-orient: vertical;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -o-box-orient: vertical;
+  box-pack: start;
+  -webkit-box-pack: end;
+  -moz-box-pack: end;
+  -o-box-pack: end;
+  box-align: center;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
 }
