@@ -75,8 +75,8 @@ gulp.task("html",function(cb){
         .pipe(revCollector({
             replaceReved: true,
             dirReplacements: {
-                '/src/css/': '/src/css/',
-                '/src/js/': '/src/js/'
+                'src/css/': 'src/css/',
+                'src/js/': 'src/js/'
             }
         }))
         .pipe(gulp.dest(htmlDestPath))

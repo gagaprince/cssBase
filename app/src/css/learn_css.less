@@ -1,0 +1,36 @@
+@import "base/base.less";
+@import "base/some.less";
+body{
+  .container{
+    width:400px;
+    margin:40px auto;
+    .title{
+      font-size:18px;
+      font-weight: bold;
+    }
+    .line{
+      height:1px;
+      background:#999;
+    }
+    .art{
+      margin:10px 0;
+      line-height:30px;
+      .s_title{
+        font-size:16px;
+        font-weight: bold;
+      }
+      .desc_list{
+          margin-left:40px;
+          .desc_item{
+            font-size:15px;
+//            font-weight:bold;
+            color:#3399ff;
+            cursor: pointer;
+          }
+        .desc_item:hover{
+          text-decoration:underline;
+        }
+      }
+    }
+  }
+}
