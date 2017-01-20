@@ -32,7 +32,7 @@ var devMode = true;
 
 gulp.task("css",function(cb){
     var cssDestPath = currentPath+'/src/css';
-    return gulp.src('app/src/css/*.less')
+    return gulp.src('app/src/css/**/*.less')
         .pipe(less())
         .pipe(gulpif(!devMode,cleanCss()))
         .pipe(rev())
@@ -43,7 +43,7 @@ gulp.task("css",function(cb){
 
 gulp.task("js",function(cb){
     var jsDestPath = currentPath+'/src/js';
-    return gulp.src('app/src/js/*')
+    return gulp.src('app/src/js/**/*')
         //.pipe(gulpif(!devMode,stripDebug()))
         .pipe(gulpif(!devMode,stripComments()))
         .pipe(webpack(require('./webpack.config.js')))
