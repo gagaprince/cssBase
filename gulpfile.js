@@ -13,26 +13,49 @@ var rev = require('gulp-rev');
 var revCollector = require('gulp-rev-collector');
 
 var connect = require('gulp-connect');
-var del = require('del');
+var delNative = require('del');
 var vinylPaths = require('vinyl-paths');
 var webpack = require('gulp-webpack');
 var gulpif = require('gulp-if');
 //var bower = require('gulp-bower');
 
-var publishPath = 'dist';
-var devWebpackPath = 'dist_webpack';
+var conf = require('./confige/conf');
+
+var publishPath = conf.publishPath||'dist';
+var devWebpackPath = conf.devWebpackPath||'dist_webpack';
 
 var currentPath = devWebpackPath;
 var devMode = true;
 
+var del = function(patterns, opts){
+    var op;
+    if(opts){
+        op = opts;
+    }else{
+        op = {}
+    }
+    op["force"]=true;
+    return delNative(patterns, op);
+}
+del.sync=function(patterns, opts){
+    var op;
+    if(opts){
+        op = opts;
+    }else{
+        op = {}
+    }
+    op["force"]=true;
+    return delNative.sync(patterns, op);
+}
+
 /*gulp.task('bower',function(){
-    return bower()
-        .pipe(gulp.dest('lib/'));
-});*/
+ return bower()
+ .pipe(gulp.dest('lib/'));
+ });*/
 
 gulp.task("css",function(cb){
     var cssDestPath = currentPath+'/src/css';
-    return gulp.src('app/src/css/*.less')
+    return gulp.src('app/src/css/**/*.less')
         .pipe(less())
         .pipe(gulpif(!devMode,cleanCss()))
         .pipe(rev())
@@ -54,14 +77,10 @@ gulp.task("js",function(cb){
         .pipe(gulp.dest(jsDestPath));
 });
 
-gulp.task("font",function(){
-    var fontDestPath = currentPath+'/src/font';
-    return gulp.src('app/src/font/*')
-        .pipe(gulp.dest(fontDestPath));
-});
-
 gulp.task("lib",function(){
     var libDestPath = currentPath+'/lib';
+    gulp.src('bower_components/jweixin/index.js')
+        .pipe(gulp.dest(libDestPath+"/jweixin/"));
     gulp.src('bower_components/zepto/zepto.min.js')
         .pipe(gulp.dest(libDestPath));
     return gulp.src('bower_components/jQuery/dist/jquery.min.js')
@@ -75,8 +94,8 @@ gulp.task("html",function(cb){
         .pipe(revCollector({
             replaceReved: true,
             dirReplacements: {
-                '/src/css/': '/src/css/',
-                '/src/js/': '/src/js/'
+                'src/css/': 'src/css/',
+                'src/js/': 'src/js/'
             }
         }))
         .pipe(gulp.dest(htmlDestPath))
@@ -117,6 +136,7 @@ gulp.task('watch_css',function(cb){
 
 gulp.task('watch_dev',function(){
     gulp.watch(['app/**/*.html'], ['html']);
+    gulp.watch(['app/**/*.tpl'], ['watch_js']);
     gulp.watch(['app/src/**/*.js'], ['watch_js']);
     gulp.watch(['app/src/**/*.less'], ['watch_css']);
 });
@@ -124,7 +144,7 @@ gulp.task('watch_dev',function(){
 gulp.task('server_start',function(){
     connect.server({
         name: 'Dev App',
-        root: ['dist_webpack'],
+        root: [devWebpackPath],
         port: 9990,
         livereload: true
     });
@@ -137,14 +157,13 @@ gulp.task('open_brower',['serve'],function(){
 gulp.task("publish",function(cb){
     currentPath =publishPath;
     devMode = false;
-    sequence('clean','lib','js','css','font','html')(cb);
+    sequence('clean','lib','js','css','html')(cb);
 });
 
 gulp.task("publish_webpack",function(cb){
-    sequence('clean','lib','js','css','font','html')(cb);
+    sequence('clean','lib','js','css','html')(cb);
 });
 
 gulp.task('serve',['publish_webpack','server_start','watch_dev']);
 
-//gulp.task('default',['open_brower']);
 gulp.task('default',['serve']);

@@ -38,11 +38,12 @@ node_modules/
 
 # dist files
 dist/
-dist_webpack/
 
-#bower files
 bower_components/
-
+dist_webpack/
 
 #private config
 h5/src/config/config.js
+
+#conf
+confige/conf.js
